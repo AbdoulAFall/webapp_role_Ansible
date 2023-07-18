@@ -28,6 +28,7 @@
     dest: /home/{{ system_user }}/webapp/index.html
     owner: "{{ system_user }}"
     group: "{{ system_user }}"
+    state: link
     mode: 0644
 
 - name: Run docker-compose up
