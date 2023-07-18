@@ -1,0 +1,8 @@
+---
+# defaults file for webapp
+system_user: ubuntu
+compose_project_dir: /home/{{ system_user }}/webapp
+compose_binary_dir: /usr/local/bin
+domain: github.com/AbdoulAFall
+stage: staging
+apache_version: latest
