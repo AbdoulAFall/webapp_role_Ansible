@@ -25,7 +25,7 @@
 - name: Import dependencies
   template: 
     src: index.html.j2
-    dest: "{{ compose_project_dir }}/webapp/index.html"
+    dest: "/usr/local/apache2/htdocs/index.html"
     owner: "{{ system_user }}"
     group: "{{ system_user }}"
     mode: 0644
