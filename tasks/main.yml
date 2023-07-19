@@ -26,12 +26,12 @@
     group: "{{ system_user }}"
     mode: 0644
 
-   - name: Create Apache container
-     docker_container:
-       name: webapp
-       image: httpd::{{ apache_version }}
-       ports:
-         - "80:80"
-       recreate: yes
-       volumes:
-         - /home/{{ system_user }}/webapp:/usr/local/apache2/htdocs/
+- name: Create Apache container
+  docker_container:
+    name: webapp
+    image: httpd::{{ apache_version }}
+    ports:
+    - "80:80"
+    recreate: yes
+    volumes:
+    - /home/{{ system_user }}/webapp:/usr/local/apache2/htdocs/
