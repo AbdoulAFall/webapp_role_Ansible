@@ -8,7 +8,7 @@
     mode: 0755
 
 - name: install git
-  package: 
+  package:
     name: git
     state: present
         #when: ansible_distribution=="CentOS"
