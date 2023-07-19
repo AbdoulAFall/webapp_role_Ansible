@@ -1,11 +1,12 @@
-- name: Setup compose dir structure
+- name: "Clean Folder"
   file:
-    path: "{{ compose_project_dir }}/webapp"
+    path: "/home/{{ system_user }}/webapp"
+    state: absent
+
+- name: Create webapp directory
+  file:
+    path: "/home/{{ system_user }}/webapp/"
     state: directory
-    owner: "{{ system_user }}"
-    group: "{{ system_user }}"
-    recurse: yes
-    mode: 0755
 
 - name: install git
   package:
@@ -16,12 +17,12 @@
 - name: Clone a repo with separate git directory
   git:
     repo: https://github.com/diranetafen/static-website-example.git 
-    dest: "{{ compose_project_dir }}/webapp"
+    dest: "/home/{{ system_user }}/webapp/"
 
 - name: Import dependencies
   template: 
     src: index.html.j2
-    dest: "/home/{{ system_user }}/index.html"
+    dest: "/home/{{ system_user }}/webapp/index.html"
     owner: "{{ system_user }}"
     group: "{{ system_user }}"
     mode: 0644
