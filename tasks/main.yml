@@ -35,4 +35,4 @@
     - "80:80"
     recreate: yes
     volumes:
-    - /home/{{ system_user }}/webapp:/usr/local/apache2/htdocs/
+    - "/home/{{ system_user }}/webapp:/usr/local/apache2/htdocs/"
