@@ -16,7 +16,7 @@
 - name: Clone a repo with separate git directory
   git:
     repo: https://github.com/diranetafen/static-website-example.git 
-    dest: {{ compose_project_dir }}/webapp
+    dest: "{{ compose_project_dir }}/webapp"
 
 - name: Import dependencies
   template: 
