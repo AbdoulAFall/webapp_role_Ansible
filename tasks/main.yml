@@ -7,31 +7,31 @@
     recurse: yes
     mode: 0755
 
-- name: Create docker-compose.yml file
-  file:
-    path: "{{ compose_project_dir }}/docker-compose.yml"
-    owner: "{{ system_user }}"
-    group: "{{ system_user }}"
-    state: touch
+- name: install git
+      package: 
+        name: git
+        state: present
+      when: ansible_distribution=="CentOS"
 
-- name: Deploy Docker Compose project for Wordpress/MySQL/Nginx (Let's Encrypt) containers
-  template:
-    src: docker-compose.j2
-    dest: "{{ compose_project_dir }}/docker-compose.yml"
-    owner: "{{ system_user }}"
-    group: "{{ system_user }}"
-    mode: 0644
+- name: Clone a repo with separate git directory
+  git:
+    repo: https://github.com/diranetafen/static-website-example.git 
+    dest: {{ compose_project_dir }}/webapp
 
 - name: Import dependencies
   template: 
     src: index.html.j2
-    dest: "/usr/local/apache2/htdocs/index.html"
+    dest: "/home/{{ system_user }}/index.html"
     owner: "{{ system_user }}"
     group: "{{ system_user }}"
     mode: 0644
 
-- name: Run docker-compose up
-  command:
-    cmd: "{{ compose_binary_dir }}/docker-compose -f docker-compose.yml up -d"
-  args:
-    chdir: "{{ compose_project_dir }}" 
+   - name: Create Apache container
+     docker_container:
+       name: webapp
+       image: httpd::{{ apache_version }}
+       ports:
+         - "80:80"
+       recreate: yes
+       volumes:
+         - /home/{{ system_user }}/webapp:/usr/local/apache2/htdocs/
