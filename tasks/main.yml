@@ -8,10 +8,10 @@
     mode: 0755
 
 - name: install git
-      package: 
-        name: git
-        state: present
-      when: ansible_distribution=="CentOS"
+    package: 
+      name: git
+      state: present
+        #when: ansible_distribution=="CentOS"
 
 - name: Clone a repo with separate git directory
   git:
